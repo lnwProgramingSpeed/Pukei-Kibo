@@ -61,7 +61,11 @@ public class YourService extends KiboRpcService
     {
         api.startMission();
 
-        moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
+        Point pointA = new Point(11.21f, -9.8f, 4.79f);
+        Quaternion quaternionA = new Quaternion(0, 0, -0.707f, 0.707f);
+        api.moveTo(pointA, quaternionA, true);
+
+        //moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
         Bitmap bMap1 = api.getBitmapNavCam();
         int[] intArrayX = new int[bMap1.getWidth()* bMap1.getHeight()];
         bMap1.getPixels(intArrayX, 0, bMap1.getWidth(), 0, 0, bMap1.getWidth(), bMap1.getHeight());
@@ -80,7 +84,7 @@ public class YourService extends KiboRpcService
 
         api.sendDiscoveredQR(pos_x);
 
-        moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
+        //moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
         QR_event(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f,3,3);
         Bitmap bMap2 = api.getBitmapNavCam();
         int[] intArrayY = new int[bMap1.getWidth()* bMap1.getHeight()];
@@ -100,7 +104,7 @@ public class YourService extends KiboRpcService
 
         api.sendDiscoveredQR(pos_y);
 
-        moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
+        //moveTo(11.21f, -9.8f, 4.79f,0, 0, -0.707f, 0.707f);
         Bitmap bMap3 = api.getBitmapNavCam();
         int[] intArrayZ = new int[bMap3.getWidth()* bMap3.getHeight()];
         bMap3.getPixels(intArrayZ, 0, bMap3.getWidth(), 0, 0, bMap3.getWidth(), bMap3.getHeight());
@@ -122,14 +126,19 @@ public class YourService extends KiboRpcService
         int Y =Integer.parseInt(pos_y);
         int Z =Integer.parseInt(pos_z);
 
-        moveTo(X, Y, Z,0, 0, -0.707f, 0.707f);
-        AR_event(X, Y, Z,0, 0, -0.707f, 0.707f,3,true);
+        //moveTo( X, Y, Z ,0, 0, 0.707f, -0.707f);
+        Point pointAR = new Point(X,Y,Z);
+        Quaternion quaternionAR = new Quaternion(0, 0, -0.707f, 0.707f);
+        api.moveTo(pointAR, quaternionAR, true);
 
-        judgeSendFinish(true);
+        api.laserControl(true);
         api.takeSnapshot();
-        judgeSendFinish(false);
+        api.laserControl(false);
 
-        moveTo(10.6f, -8.0f, 4.5f,0, 0, -0.707f, 0.707f);
+        //moveTo(10.6f, -8.0f, 4.5f,0, 0, -0.707f, 0.707f);
+        Point pointB = new Point(10.6f, -8.0f, 4.5f);
+        Quaternion quaternionB = new Quaternion(0, 0, -0.707f, 0.707f);
+        api.moveTo(pointB, quaternionB, true);
         api.reportMissionCompletion();
 
     }
